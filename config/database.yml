@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: weather_Line_Bot_production
-  username: weather_Line_Bot
-  password: <%= ENV['WEATHER_LINE_BOT_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DB_NAME'] %> 
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
