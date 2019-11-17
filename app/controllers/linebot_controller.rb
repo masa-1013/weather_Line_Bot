@@ -8,7 +8,7 @@ class LinebotController < ApplicationController
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
-    events = client.parse_events_form(body)
+    events = client.parse_events_from(body)
 
     events.each do |event|
       case event
