@@ -41,10 +41,10 @@ class LinebotController < ApplicationController
   end
 
   def call_weather
-    API_KEY = ENV['OPEN_WEATHER_API_KEY']
-    BASE_URL = 'http://api.openweathermap.org/data/2.5/forecast'
+    key = ENV['OPEN_WEATHER_API_KEY']
+    url = 'http://api.openweathermap.org/data/2.5/forecast'
 
-    response = open(BASE_URL + "?q=Osaka,jp&APPID=#{API_KEY}")
+    response = open(url + "?q=Osaka,jp&APPID=#{key}")
     JSON.pretty_generate(JSON.parse(response.read))
   end
 end
