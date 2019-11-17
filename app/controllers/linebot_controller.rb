@@ -28,7 +28,7 @@ class LinebotController < ApplicationController
     end
     head :ok
 
-    p call_weather
+    puts call_weather
   end
 
   private
