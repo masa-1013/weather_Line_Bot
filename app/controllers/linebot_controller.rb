@@ -20,7 +20,7 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: call_weather
+            text: judge_rain
           }
         end
       end
@@ -41,10 +41,29 @@ class LinebotController < ApplicationController
   end
 
   def call_weather
+    '作成中'
+  end
+
+  def judge_rain
+    response = get_weather_from_API
+    now = Time.now.strftime('%Y-%m-%d')
+
+    response['list'].each do |data|
+      next unless data['dt_txt'].split()[0] == now
+      if data['weather'][0]['id'].to_i / 100 == 8
+        return '今日は雨だよ'
+      end
+    end
+    '今日は雨じゃないよ'
+  end
+
+  def get_weather_from_API
     key = ENV['OPEN_WEATHER_API_KEY']
     url = 'http://api.openweathermap.org/data/2.5/forecast'
+    id = '1853909'
 
-    response = open(url + "?q=Osaka,jp&APPID=#{key}")
-    JSON.pretty_generate(JSON.parse(response.read))
+    response = open(url + "?id=#{id}&APPID=#{key}")
+    JSON.parse(response.read)
   end
+  
 end
